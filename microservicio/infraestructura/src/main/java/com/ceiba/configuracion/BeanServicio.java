@@ -7,6 +7,9 @@ import com.ceiba.mesa.servicio.ServicioCrearMesa;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioReservar;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
+import com.ceiba.restaurante.servicio.ServicioAñadirDescuento;
+import com.ceiba.restaurante.servicio.ServicioAñadirMesa;
+import com.ceiba.restaurante.servicio.ServicioCrearRestaurante;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
 import com.ceiba.usuario.servicio.ServicioCrearUsuario;
@@ -48,6 +51,23 @@ public class BeanServicio {
     @Bean
     public ServicioCrearMesa servicioCrearMesa(RepositorioMesa repositorioMesa){
         return  new ServicioCrearMesa(repositorioMesa);
+    }
+
+    @Bean
+    public ServicioAñadirMesa servicioAñadirMesa(RepositorioRestaurante repositorioRestaurante,
+                                                 RepositorioMesa repositorioMesa,
+                                                 ServicioCrearMesa servicioCrearMesa){
+        return new ServicioAñadirMesa(repositorioRestaurante,repositorioMesa,servicioCrearMesa);
+    }
+
+    @Bean
+    public ServicioAñadirDescuento servicioAñadirDescuento(RepositorioRestaurante repositorioRestaurante, RepositorioDescuento repositorioDescuento, ServicioCrearDescuento servicioCrearDescuento){
+        return new ServicioAñadirDescuento(repositorioRestaurante, repositorioDescuento, servicioCrearDescuento);
+    }
+
+    @Bean
+    public ServicioCrearRestaurante servicioCrearRestaurante(RepositorioRestaurante repositorioRestaurante){
+        return new ServicioCrearRestaurante(repositorioRestaurante);
     }
 
 }

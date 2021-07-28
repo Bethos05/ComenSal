@@ -4,6 +4,7 @@ import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
+import com.ceiba.reserva.modelo.dto.DtoReservaIn;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
@@ -30,12 +31,12 @@ public class ServicioReservar {
         this.repositorioMesa = repositorioMesa;
     }
 
-    public Long ejecutar(Reserva reserva){
+    public Long ejecutar(DtoReservaIn reserva){
 
-        validarExistenciaRestaurante(reserva.getRestaurante().getId());
-        validarExistenciaDescuento(reserva.getRestaurante().getId(), reserva.getDescuento().getCodigo());
-        validarExistenciaMesa(reserva.getRestaurante().getId(), reserva.getMesa().getId());
-        validarDisponibilidad( reserva.getRestaurante().getId(), reserva.getMesa().getId(), reserva.getDiaReserva());
+        validarExistenciaRestaurante(reserva.getIdRestaurante());
+        validarExistenciaDescuento(reserva.getIdRestaurante(), reserva.getCodigo());
+        validarExistenciaMesa(reserva.getIdRestaurante(), reserva.getIdMesa());
+        validarDisponibilidad( reserva.getIdRestaurante(), reserva.getIdMesa(), reserva.getDiaReserva());
 
         return this.repositorioReserva.crear(reserva);
     }

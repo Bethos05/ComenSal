@@ -7,6 +7,7 @@ import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
+import com.ceiba.reserva.servicio.testdatabuilder.DtoReservaInTestDataBuilder;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new ReservaTestDataBuilder().build()),
+                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().build()),
                 ExcepcionSinDatos.class,
                 "El restaurante no existe"
         );
@@ -49,7 +50,7 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new ReservaTestDataBuilder().conDescuento(new DescuentoTestDataBuilder().build()).build()),
+                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build()),
                 ExcepcionSinDatos.class,
                 "El descuento no existe en este restaurante"
         );
@@ -71,7 +72,7 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new ReservaTestDataBuilder().conDescuento(new DescuentoTestDataBuilder().build()).build()),
+                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build()),
                 ExcepcionSinDatos.class,
                 "La mesa no existe en este restaurante"
         );
@@ -95,7 +96,7 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new ReservaTestDataBuilder().conDescuento(new DescuentoTestDataBuilder().build()).build()),
+                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build()),
                 ExcepcionDuplicidad.class,
                 "la mesa ya se encuentra reservada"
         );
@@ -119,7 +120,7 @@ public class ServicioReservarTest {
                 repositorioMesa
         );
 
-        Long respuesta = servicioReservar.ejecutar(new ReservaTestDataBuilder().conDescuento(new DescuentoTestDataBuilder().build()).build());
+        Long respuesta = servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build());
 
         Mockito.verify(repositorioReserva, Mockito.times(1)).crear(Mockito.any());
         assertTrue(respuesta == 1l);

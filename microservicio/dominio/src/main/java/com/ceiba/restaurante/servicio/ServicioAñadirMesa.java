@@ -24,9 +24,9 @@ public class ServicioAñadirMesa {
         this.servicioCrearMesa = servicioCrearMesa;
     }
 
-    public void ejecutar(Long idRestaurante, Mesa mesa){
-        validarExistenciaRestaurante(idRestaurante);
-        validarExistenciaMesa(idRestaurante, mesa.getId());
+    public void ejecutar(Mesa mesa){
+        validarExistenciaRestaurante(mesa.getRestauranteId());
+        validarExistenciaMesa(mesa.getRestauranteId(), mesa.getId());
         this.servicioCrearMesa.ejecutar(mesa);
     }
 

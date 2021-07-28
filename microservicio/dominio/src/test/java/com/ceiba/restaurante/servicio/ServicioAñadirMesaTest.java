@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertTrue;
+
 
 public class ServicioAñadirMesaTest {
 
@@ -24,7 +24,7 @@ public class ServicioAñadirMesaTest {
         ServicioAñadirMesa servicioAñadirMesa = new ServicioAñadirMesa(repositorioRestaurante, null, null);
 
         BasePrueba.assertThrows(
-                ()->servicioAñadirMesa.ejecutar(1l, new Mesa(12l, 1l)),
+                ()->servicioAñadirMesa.ejecutar( new Mesa(12l, 1l)),
                 ExcepcionSinDatos.class,
                 "El restaurante no existe"
         );
@@ -43,7 +43,7 @@ public class ServicioAñadirMesaTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioAñadirMesa.ejecutar(1l, new Mesa(12l, 1l)),
+                ()->servicioAñadirMesa.ejecutar( new Mesa(12l, 1l)),
                 ExcepcionDuplicidad.class,
                 "La mesa ya existe en este restaurante"
         );
@@ -67,7 +67,7 @@ public class ServicioAñadirMesaTest {
                 servicioCrearMesa
         );
 
-        servicioAñadirMesa.ejecutar(1l, mesa);
+        servicioAñadirMesa.ejecutar( mesa);
 
 
         Mockito.verify(servicioCrearMesa, Mockito.times(1)).ejecutar(mesa);

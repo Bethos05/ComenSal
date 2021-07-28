@@ -1,6 +1,8 @@
 package com.ceiba.mesa.comando.manejador;
 
 import com.ceiba.ComandoRespuesta;
+import com.ceiba.descuento.comando.ComandoDescuento;
+import com.ceiba.manejador.ManejadorComandoRespuesta;
 import com.ceiba.mesa.comando.ComandoMesa;
 import com.ceiba.mesa.comando.fabrica.FabricaMesa;
 import com.ceiba.mesa.modelo.entidad.Mesa;
@@ -8,7 +10,7 @@ import com.ceiba.mesa.servicio.ServicioCrearMesa;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorCrearMesa {
+public class ManejadorCrearMesa implements ManejadorComandoRespuesta<ComandoMesa, ComandoRespuesta<Long>> {
 
     private final FabricaMesa fabricaMesa;
     private final ServicioCrearMesa servicioCrearMesa;
