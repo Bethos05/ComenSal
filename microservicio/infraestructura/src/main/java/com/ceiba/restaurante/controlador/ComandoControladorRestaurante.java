@@ -1,0 +1,15 @@
+package com.ceiba.restaurante.controlador;
+
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/restaurantes")
+@Api(tags = { "Controlador comando descuento"})
+public class ComandoControladorRestaurante {
+
+
+
+
+}

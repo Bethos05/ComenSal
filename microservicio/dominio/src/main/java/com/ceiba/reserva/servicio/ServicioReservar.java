@@ -64,9 +64,11 @@ public class ServicioReservar {
 
     private void validarDisponibilidad(Long idRestaurante, Long idMesa, LocalDate diaReserva)  {
         boolean reservada = this.repositorioReserva.existePorRestauranteYMesaYdia(idRestaurante, idMesa, diaReserva);
+
         if (reservada){
             throw new ExcepcionDuplicidad(MESA_RESERVADA);
         }
+
     }
 
 

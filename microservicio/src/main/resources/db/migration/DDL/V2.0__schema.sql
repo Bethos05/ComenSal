@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS RESTAURANTE (
 CREATE TABLE IF NOT EXISTS MESA (
           id SERIAL,
           id_restaurante INTEGER NOT NULL,
-          estado_actual BOOLEAN  DEFAULT FALSE,
           PRIMARY KEY (id, id_restaurante),
           FOREIGN KEY (id_restaurante) REFERENCES RESTAURANTE(id)
 );

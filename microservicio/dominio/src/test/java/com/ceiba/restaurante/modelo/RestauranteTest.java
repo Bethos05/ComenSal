@@ -64,7 +64,7 @@ public class RestauranteTest {
 
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
 
         restaurante.agregarMesa(mesa);
@@ -80,7 +80,7 @@ public class RestauranteTest {
         );
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
         restaurante.agregarMesa(mesa);
 

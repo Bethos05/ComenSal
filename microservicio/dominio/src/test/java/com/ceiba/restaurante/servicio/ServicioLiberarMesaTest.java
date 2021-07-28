@@ -18,7 +18,7 @@ public class ServicioLiberarMesaTest {
 
         //Arrange
         Restaurante restaurante = new Restaurante(1l, "NOMBRE",new BigDecimal(50000));
-        Mesa mesa = new Mesa(12l, 1l, false);
+        Mesa mesa = new Mesa(12l, 1l);
         restaurante.agregarMesa(mesa);
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
@@ -39,7 +39,7 @@ public class ServicioLiberarMesaTest {
 
         //Arrange
         Restaurante restaurante = new Restaurante(1l,"NOMBRE",new BigDecimal(50000));
-        Mesa mesa = new Mesa(12l, 1l, false);
+        Mesa mesa = new Mesa(12l, 1l);
         restaurante.agregarMesa(mesa);
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(false);
@@ -62,7 +62,7 @@ public class ServicioLiberarMesaTest {
 
         //Arrange
         Restaurante restaurante = new Restaurante(1l, "NOMBRE",new BigDecimal(50000));
-        Mesa mesa = new Mesa(12l, 1l, false);
+        Mesa mesa = new Mesa(12l, 1l);
         restaurante.agregarMesa(mesa);
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);

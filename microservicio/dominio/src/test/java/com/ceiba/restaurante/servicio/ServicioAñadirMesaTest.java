@@ -24,7 +24,7 @@ public class ServicioAñadirMesaTest {
         ServicioAñadirMesa servicioAñadirMesa = new ServicioAñadirMesa(repositorioRestaurante, null, null);
 
         BasePrueba.assertThrows(
-                ()->servicioAñadirMesa.ejecutar(1l, new Mesa(12l, 1l, false)),
+                ()->servicioAñadirMesa.ejecutar(1l, new Mesa(12l, 1l)),
                 ExcepcionSinDatos.class,
                 "El restaurante no existe"
         );
@@ -43,7 +43,7 @@ public class ServicioAñadirMesaTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioAñadirMesa.ejecutar(1l, new Mesa(12l, 1l, false)),
+                ()->servicioAñadirMesa.ejecutar(1l, new Mesa(12l, 1l)),
                 ExcepcionDuplicidad.class,
                 "La mesa ya existe en este restaurante"
         );
@@ -52,7 +52,7 @@ public class ServicioAñadirMesaTest {
     @Test
     public void validarExistenciaRestauranteExisteYMesaNoExiste(){
         Restaurante restaurante = new Restaurante(1l, "NOMBRE",new BigDecimal(50000));
-        Mesa mesa = new Mesa(12l, 1l, false);
+        Mesa mesa = new Mesa(12l, 1l);
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
         Mockito.when(repositorioRestaurante.buscarPorId(Mockito.anyLong())).thenReturn(restaurante);

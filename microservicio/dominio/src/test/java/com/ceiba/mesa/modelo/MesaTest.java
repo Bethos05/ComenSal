@@ -15,11 +15,11 @@ public class MesaTest {
     public void mesaTest(){
         this.mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
 
         assertTrue(this.mesa.getId() == 12l);
-        assertTrue(this.mesa.isEstadoActual() == false);
+        assertTrue(this.mesa.getRestauranteId() == 1l);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class MesaTest {
                 ()->{
                     this.mesa = new Mesa(
                             null,
-                            1l, false
+                            1l
                     );
                 },
                 ExcepcionValorObligatorio.class,
@@ -42,7 +42,7 @@ public class MesaTest {
                 ()->{
                     this.mesa = new Mesa(
                             1l,
-                            null, false
+                            null
                     );
                 },
                 ExcepcionValorObligatorio.class,

@@ -12,13 +12,12 @@ public class Mesa {
 
     private Long id;
     private Long restauranteId;
-    private boolean estadoActual;
 
-    public Mesa(Long id, Long restauranteId, boolean estadoActual) {
+
+    public Mesa(Long id, Long restauranteId) {
         validarObligatorio(id, SE_DEBE_INGRESAR_ID);
         validarObligatorio(restauranteId, SE_DEBE_INGRESAR_RESTAURANTE_ID);
         this.id = id;
-        this.estadoActual = estadoActual;
         this.restauranteId = restauranteId;
     }
 

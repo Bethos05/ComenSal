@@ -7,7 +7,7 @@ import java.util.List;
 public interface RepositorioDescuento {
     Long crear(Descuento descuento);
 
-    boolean existePorRestauranteYCodigo(long anyLong, long anyLong1);
+    boolean existePorRestauranteYCodigo(Long idRestaurante, Long codigo);
 
     List<Descuento> descuentosPorRestaurante(Long idRestaurante);
 }

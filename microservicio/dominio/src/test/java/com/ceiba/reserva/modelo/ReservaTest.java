@@ -31,7 +31,7 @@ public class ReservaTest {
         );
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
         restaurante.agregarDescuento(descuento);
         restaurante.agregarMesa(mesa);
@@ -64,7 +64,7 @@ public class ReservaTest {
 
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
 
         restaurante.agregarMesa(mesa);
@@ -96,7 +96,7 @@ public class ReservaTest {
         );
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
         restaurante.agregarDescuento(descuento);
         restaurante.agregarMesa(mesa);
@@ -126,7 +126,7 @@ public class ReservaTest {
         );
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
 
         BasePrueba.assertThrows(
@@ -157,7 +157,7 @@ public class ReservaTest {
         );
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
         restaurante.agregarDescuento(descuento);
         restaurante.agregarMesa(mesa);
@@ -190,7 +190,7 @@ public class ReservaTest {
         );
         Mesa mesa = new Mesa(
                 12l,
-                1l, false
+                1l
         );
         restaurante.agregarDescuento(descuento);
 
