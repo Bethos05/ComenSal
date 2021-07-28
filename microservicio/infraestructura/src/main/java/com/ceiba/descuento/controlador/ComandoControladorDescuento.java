@@ -27,4 +27,6 @@ public class ComandoControladorDescuento {
     public ComandoRespuesta<Long> crear( @RequestBody ComandoDescuento comandoDescuento){
         return manejadorCrearDescuento.ejecutar(comandoDescuento);
     }
+
+
 }

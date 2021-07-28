@@ -27,8 +27,6 @@ public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
     private static String sqlDescuentosPorRestaurante;
 
 
-
-
     public RepositorioDescuentoPostgresql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
     }

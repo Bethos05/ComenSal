@@ -26,12 +26,7 @@ public class ServicioAñadirDescuento {
     public void ejecutar( Descuento descuento){
        validarExistenciaRestaurante(descuento.getRestauranteId());
        validarExistenciaDescuento(descuento.getRestauranteId(), descuento.getCodigo());
-
-       Restaurante restaurante = this.repositorioRestaurante.buscarPorId(descuento.getRestauranteId());
-       restaurante.agregarDescuento(descuento);
-       this.repositorioRestaurante.actualizar(restaurante);
        this.servicioCrearDescuento.ejecutar(descuento);
-
     }
 
     private void validarExistenciaRestaurante(Long idRestaurante){

@@ -1,7 +1,7 @@
 package com.ceiba.mesa.servicio;
 
 import com.ceiba.mesa.modelo.entidad.Mesa;
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 
 public class ServicioCrearMesa {
 

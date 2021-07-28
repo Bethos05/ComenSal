@@ -1,7 +1,7 @@
 package com.ceiba.mesa.servicio;
 
 
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.mesa.servicio.testdatabuilder.MesaTestDataBuilder;
 import org.junit.Test;
 import org.mockito.Mockito;

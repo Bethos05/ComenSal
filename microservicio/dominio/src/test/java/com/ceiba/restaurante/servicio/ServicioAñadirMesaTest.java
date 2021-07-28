@@ -4,7 +4,7 @@ import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.modelo.entidad.Mesa;
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.mesa.servicio.ServicioCrearMesa;
 import com.ceiba.restaurante.modelo.entidad.Restaurante;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
@@ -69,9 +69,9 @@ public class ServicioAñadirMesaTest {
 
         servicioAñadirMesa.ejecutar(1l, mesa);
 
-        Mockito.verify(repositorioRestaurante, Mockito.times(1)).actualizar(restaurante);
+
         Mockito.verify(servicioCrearMesa, Mockito.times(1)).ejecutar(mesa);
-        assertTrue(restaurante.getMesas().contains(mesa));
+
     }
 
 

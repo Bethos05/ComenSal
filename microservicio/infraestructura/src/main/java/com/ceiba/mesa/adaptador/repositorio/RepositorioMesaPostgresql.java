@@ -3,7 +3,7 @@ package com.ceiba.mesa.adaptador.repositorio;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.mesa.modelo.entidad.Mesa;
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 

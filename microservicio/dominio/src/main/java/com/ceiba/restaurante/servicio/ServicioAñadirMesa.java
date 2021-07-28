@@ -3,7 +3,7 @@ package com.ceiba.restaurante.servicio;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.modelo.entidad.Mesa;
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.mesa.servicio.ServicioCrearMesa;
 import com.ceiba.restaurante.modelo.entidad.Restaurante;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
@@ -27,11 +27,6 @@ public class ServicioAñadirMesa {
     public void ejecutar(Long idRestaurante, Mesa mesa){
         validarExistenciaRestaurante(idRestaurante);
         validarExistenciaMesa(idRestaurante, mesa.getId());
-
-        Restaurante restaurante = this.repositorioRestaurante.buscarPorId(idRestaurante);
-        restaurante.agregarMesa(mesa);
-
-        this.repositorioRestaurante.actualizar(restaurante);
         this.servicioCrearMesa.ejecutar(mesa);
     }
 

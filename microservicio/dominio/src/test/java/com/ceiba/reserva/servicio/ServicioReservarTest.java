@@ -5,7 +5,7 @@ import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.descuento.servicio.servicio.testdatabuilder.DescuentoTestDataBuilder;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;

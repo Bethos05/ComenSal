@@ -2,7 +2,7 @@ package com.ceiba.configuracion;
 
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.descuento.servicio.ServicioCrearDescuento;
-import com.ceiba.mesa.repositorio.RepositorioMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.mesa.servicio.ServicioCrearMesa;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioReservar;

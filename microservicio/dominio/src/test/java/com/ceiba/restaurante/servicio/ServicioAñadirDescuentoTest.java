@@ -72,9 +72,9 @@ public class ServicioAñadirDescuentoTest {
 
         servicioAñadirDescuento.ejecutar(descuento);
 
-        Mockito.verify(repositorioRestaurante, Mockito.times(1)).actualizar(restaurante);
+
         Mockito.verify(servicioCrearDescuento, Mockito.times(1)).ejecutar(descuento);
-        assertTrue(restaurante.getDescuentos().contains(descuento));
+
 
     }
 

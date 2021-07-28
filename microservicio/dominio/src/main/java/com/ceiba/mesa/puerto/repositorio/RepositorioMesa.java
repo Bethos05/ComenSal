@@ -1,4 +1,4 @@
-package com.ceiba.mesa.repositorio;
+package com.ceiba.mesa.puerto.repositorio;
 
 import com.ceiba.mesa.modelo.entidad.Mesa;
 
