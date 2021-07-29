@@ -4,8 +4,8 @@ import com.ceiba.ComandoRespuesta;
 import com.ceiba.descuento.comando.ComandoDescuento;
 import com.ceiba.mesa.comando.ComandoMesa;
 import com.ceiba.restaurante.ComandoRestaurante;
-import com.ceiba.restaurante.comando.manejador.ManejadorAñadirDescuento;
-import com.ceiba.restaurante.comando.manejador.ManejadorAñadirMesa;
+import com.ceiba.restaurante.comando.manejador.ManejadorAgregarDescuento;
+import com.ceiba.restaurante.comando.manejador.ManejadorAgregarMesa;
 import com.ceiba.restaurante.comando.manejador.ManejadorCrearRestaurante;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = { "Controlador comando descuento"})
 public class ComandoControladorRestaurante {
 
-    private final ManejadorAñadirDescuento manejadorAñadirDescuento;
-    private final ManejadorAñadirMesa manejadorAñadirMesa;
+    private final ManejadorAgregarDescuento manejadorAgregarDescuento;
+    private final ManejadorAgregarMesa manejadorAgregarMesa;
     private final ManejadorCrearRestaurante manejadorCrearRestaurante;
 
     @Autowired
-    public ComandoControladorRestaurante(ManejadorAñadirDescuento manejadorAñadirDescuento, ManejadorAñadirMesa manejadorAñadirMesa, ManejadorCrearRestaurante manejadorCrearRestaurante) {
-        this.manejadorAñadirDescuento = manejadorAñadirDescuento;
-        this.manejadorAñadirMesa = manejadorAñadirMesa;
+    public ComandoControladorRestaurante(ManejadorAgregarDescuento manejadorAgregarDescuento, ManejadorAgregarMesa manejadorAgregarMesa, ManejadorCrearRestaurante manejadorCrearRestaurante) {
+        this.manejadorAgregarDescuento = manejadorAgregarDescuento;
+        this.manejadorAgregarMesa = manejadorAgregarMesa;
         this.manejadorCrearRestaurante = manejadorCrearRestaurante;
     }
 
@@ -38,15 +38,15 @@ public class ComandoControladorRestaurante {
     }
 
     @PostMapping("/addDescuento")
-    @ApiOperation("añair descuento")
-    public void añadirDescuento(@RequestBody ComandoDescuento comandoDescuento){
-        manejadorAñadirDescuento.ejecutar(comandoDescuento);
+    @ApiOperation("agregar descuento")
+    public void agregarDescuento(@RequestBody ComandoDescuento comandoDescuento){
+        manejadorAgregarDescuento.ejecutar(comandoDescuento);
     }
 
     @PostMapping("/addMesa")
-    @ApiOperation("añair mesa")
-    public void añadirMesa(@RequestBody ComandoMesa comandoMesa){
-        manejadorAñadirMesa.ejecutar(comandoMesa);
+    @ApiOperation("agregar mesa")
+    public void agregarMesa(@RequestBody ComandoMesa comandoMesa){
+        manejadorAgregarMesa.ejecutar(comandoMesa);
     }
 
 

@@ -3,22 +3,22 @@ package com.ceiba.restaurante.comando.manejador;
 import com.ceiba.mesa.comando.ComandoMesa;
 import com.ceiba.mesa.comando.fabrica.FabricaMesa;
 import com.ceiba.mesa.modelo.entidad.Mesa;
-import com.ceiba.restaurante.servicio.ServicioAñadirMesa;
+import com.ceiba.restaurante.servicio.ServicioAgregarMesa;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorAñadirMesa {
+public class ManejadorAgregarMesa {
 
-    private final ServicioAñadirMesa servicioAñadirMesa;
+    private final ServicioAgregarMesa servicioAgregarMesa;
     private final FabricaMesa fabricaMesa;
 
-    public ManejadorAñadirMesa(ServicioAñadirMesa servicioAñadirMesa, FabricaMesa fabricaMesa) {
-        this.servicioAñadirMesa = servicioAñadirMesa;
+    public ManejadorAgregarMesa(ServicioAgregarMesa servicioAgregarMesa, FabricaMesa fabricaMesa) {
+        this.servicioAgregarMesa = servicioAgregarMesa;
         this.fabricaMesa = fabricaMesa;
     }
 
     public void ejecutar(ComandoMesa comandoMesa){
         Mesa mesa = this.fabricaMesa.crear(comandoMesa);
-        this.servicioAñadirMesa.ejecutar(mesa);
+        this.servicioAgregarMesa.ejecutar(mesa);
     }
 }

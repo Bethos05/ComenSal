@@ -3,18 +3,18 @@ package com.ceiba.restaurante.comando.manejador;
 import com.ceiba.descuento.comando.ComandoDescuento;
 import com.ceiba.descuento.comando.fabrica.FabricaDescuento;
 import com.ceiba.descuento.modelo.entidad.Descuento;
-import com.ceiba.restaurante.servicio.ServicioAñadirDescuento;
+import com.ceiba.restaurante.servicio.ServicioAgregarDescuento;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class ManejadorAñadirDescuento  {
+public class ManejadorAgregarDescuento {
 
-    private final ServicioAñadirDescuento servicioAñadirDescuento;
+    private final ServicioAgregarDescuento servicioAgregarDescuento;
     private final FabricaDescuento fabricaDescuento;
 
-    public ManejadorAñadirDescuento(ServicioAñadirDescuento servicioAñadirDescuento, FabricaDescuento fabricaDescuento) {
-        this.servicioAñadirDescuento = servicioAñadirDescuento;
+    public ManejadorAgregarDescuento(ServicioAgregarDescuento servicioAgregarDescuento, FabricaDescuento fabricaDescuento) {
+        this.servicioAgregarDescuento = servicioAgregarDescuento;
         this.fabricaDescuento = fabricaDescuento;
     }
 
@@ -22,6 +22,6 @@ public class ManejadorAñadirDescuento  {
 
         Descuento descuento = this.fabricaDescuento.crear(comandoDescuento);
 
-        this.servicioAñadirDescuento.ejecutar(descuento);
+        this.servicioAgregarDescuento.ejecutar(descuento);
     }
 }

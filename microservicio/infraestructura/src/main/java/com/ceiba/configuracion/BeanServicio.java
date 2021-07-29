@@ -7,8 +7,8 @@ import com.ceiba.mesa.servicio.ServicioCrearMesa;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.ServicioReservar;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
-import com.ceiba.restaurante.servicio.ServicioAñadirDescuento;
-import com.ceiba.restaurante.servicio.ServicioAñadirMesa;
+import com.ceiba.restaurante.servicio.ServicioAgregarDescuento;
+import com.ceiba.restaurante.servicio.ServicioAgregarMesa;
 import com.ceiba.restaurante.servicio.ServicioCrearRestaurante;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
@@ -54,15 +54,15 @@ public class BeanServicio {
     }
 
     @Bean
-    public ServicioAñadirMesa servicioAñadirMesa(RepositorioRestaurante repositorioRestaurante,
-                                                 RepositorioMesa repositorioMesa,
-                                                 ServicioCrearMesa servicioCrearMesa){
-        return new ServicioAñadirMesa(repositorioRestaurante,repositorioMesa,servicioCrearMesa);
+    public ServicioAgregarMesa servicioAgregarMesa(RepositorioRestaurante repositorioRestaurante,
+                                                   RepositorioMesa repositorioMesa,
+                                                   ServicioCrearMesa servicioCrearMesa){
+        return new ServicioAgregarMesa(repositorioRestaurante,repositorioMesa,servicioCrearMesa);
     }
 
     @Bean
-    public ServicioAñadirDescuento servicioAñadirDescuento(RepositorioRestaurante repositorioRestaurante, RepositorioDescuento repositorioDescuento, ServicioCrearDescuento servicioCrearDescuento){
-        return new ServicioAñadirDescuento(repositorioRestaurante, repositorioDescuento, servicioCrearDescuento);
+    public ServicioAgregarDescuento servicioAgregarDescuento(RepositorioRestaurante repositorioRestaurante, RepositorioDescuento repositorioDescuento, ServicioCrearDescuento servicioCrearDescuento){
+        return new ServicioAgregarDescuento(repositorioRestaurante, repositorioDescuento, servicioCrearDescuento);
     }
 
     @Bean

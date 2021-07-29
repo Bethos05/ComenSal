@@ -4,11 +4,9 @@ import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.restaurante.modelo.dto.DtoRestaurante;
 import com.ceiba.restaurante.puerto.dao.DaoRestaurante;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component

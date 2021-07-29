@@ -5,10 +5,9 @@ import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.modelo.entidad.Mesa;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.mesa.servicio.ServicioCrearMesa;
-import com.ceiba.restaurante.modelo.entidad.Restaurante;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
 
-public class ServicioAñadirMesa {
+public class ServicioAgregarMesa {
 
     private static final String RESTAURANTE_NO_EXISTE = "El restaurante no existe";
     private static final String EXISTE_ACTUALMENTE = "La mesa ya existe en este restaurante";
@@ -18,7 +17,7 @@ public class ServicioAñadirMesa {
     private final ServicioCrearMesa servicioCrearMesa;
 
 
-    public ServicioAñadirMesa(RepositorioRestaurante repositorioRestaurante, RepositorioMesa repositorioMesa, ServicioCrearMesa servicioCrearMesa) {
+    public ServicioAgregarMesa(RepositorioRestaurante repositorioRestaurante, RepositorioMesa repositorioMesa, ServicioCrearMesa servicioCrearMesa) {
         this.repositorioRestaurante = repositorioRestaurante;
         this.repositorioMesa = repositorioMesa;
         this.servicioCrearMesa = servicioCrearMesa;

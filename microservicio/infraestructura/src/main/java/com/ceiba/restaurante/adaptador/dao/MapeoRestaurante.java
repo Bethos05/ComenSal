@@ -1,7 +1,6 @@
 package com.ceiba.restaurante.adaptador.dao;
 
 import com.ceiba.infraestructura.jdbc.MapperResult;
-import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.restaurante.modelo.dto.DtoRestaurante;
 import org.springframework.jdbc.core.RowMapper;
 

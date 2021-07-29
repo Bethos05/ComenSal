@@ -15,16 +15,16 @@ import java.math.BigDecimal;
 
 
 
-public class ServicioAñadirMesaTest {
+public class ServicioAgregarMesaTest {
 
     @Test
     public void validarExistenciaRestauranteNoExiste(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(false);
-        ServicioAñadirMesa servicioAñadirMesa = new ServicioAñadirMesa(repositorioRestaurante, null, null);
+        ServicioAgregarMesa servicioAgregarMesa = new ServicioAgregarMesa(repositorioRestaurante, null, null);
 
         BasePrueba.assertThrows(
-                ()->servicioAñadirMesa.ejecutar( new Mesa(12l, 1l)),
+                ()-> servicioAgregarMesa.ejecutar( new Mesa(12l, 1l)),
                 ExcepcionSinDatos.class,
                 "El restaurante no existe"
         );
@@ -36,14 +36,14 @@ public class ServicioAñadirMesaTest {
         Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
         RepositorioMesa repositorioMesa = Mockito.mock(RepositorioMesa.class);
         Mockito.when(repositorioMesa.existePorRestauranteYid(Mockito.anyLong(), Mockito.anyLong())).thenReturn(true);
-        ServicioAñadirMesa servicioAñadirMesa = new ServicioAñadirMesa(
+        ServicioAgregarMesa servicioAgregarMesa = new ServicioAgregarMesa(
                 repositorioRestaurante,
                 repositorioMesa,
                 null
         );
 
         BasePrueba.assertThrows(
-                ()->servicioAñadirMesa.ejecutar( new Mesa(12l, 1l)),
+                ()-> servicioAgregarMesa.ejecutar( new Mesa(12l, 1l)),
                 ExcepcionDuplicidad.class,
                 "La mesa ya existe en este restaurante"
         );
@@ -61,13 +61,13 @@ public class ServicioAñadirMesaTest {
                 Mockito.anyLong())).thenReturn(false);
         ServicioCrearMesa servicioCrearMesa = Mockito.mock(ServicioCrearMesa.class);
 
-        ServicioAñadirMesa servicioAñadirMesa = new ServicioAñadirMesa(
+        ServicioAgregarMesa servicioAgregarMesa = new ServicioAgregarMesa(
                 repositorioRestaurante,
                 repositorioMesa,
                 servicioCrearMesa
         );
 
-        servicioAñadirMesa.ejecutar( mesa);
+        servicioAgregarMesa.ejecutar( mesa);
 
 
         Mockito.verify(servicioCrearMesa, Mockito.times(1)).ejecutar(mesa);

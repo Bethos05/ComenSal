@@ -35,7 +35,7 @@ public class Descuento {
     }
 
     public boolean validarCodigo(Long codigo){
-        return this.codigo == codigo;
+        return this.codigo.equals(codigo);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.ceiba.reserva.puerto.repositorio;
 
 import com.ceiba.reserva.modelo.dto.DtoReservaIn;
-import com.ceiba.reserva.modelo.entidad.Reserva;
+
 
 import java.time.LocalDate;
 

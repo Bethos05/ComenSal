@@ -5,7 +5,6 @@ import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.reserva.modelo.dto.DtoReservaIn;
-import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
 
