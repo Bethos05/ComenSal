@@ -15,7 +15,8 @@ public class DtoReserva {
     private Long id;
     private LocalDate diaReserva;
     private String nombreRestaurante;
-    private String descuentoCodigo;
+    private Long idMesa;
+    private BigDecimal valorDescuento;
     private BigDecimal precio;
 
 }

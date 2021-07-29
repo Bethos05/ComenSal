@@ -12,7 +12,6 @@ public class DtoDescuento {
 
     private Long id;
     private Long codigo;
-    private Long restauranteId;
     private BigDecimal valorDescuento;
 
 }
