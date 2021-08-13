@@ -62,7 +62,6 @@ public class ServicioAgregarDescuentoTest {
         Descuento descuento = new DescuentoTestDataBuilder().build();
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
-        Mockito.when(repositorioRestaurante.buscarPorNombre(Mockito.anyString())).thenReturn(restaurante);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
         Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
         ServicioCrearDescuento servicioCrearDescuento = Mockito.mock(ServicioCrearDescuento.class);

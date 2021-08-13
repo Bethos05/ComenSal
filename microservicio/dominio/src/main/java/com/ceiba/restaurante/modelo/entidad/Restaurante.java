@@ -3,7 +3,6 @@ package com.ceiba.restaurante.modelo.entidad;
 import com.ceiba.descuento.modelo.entidad.Descuento;
 import com.ceiba.mesa.modelo.entidad.Mesa;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -34,7 +33,7 @@ public class Restaurante {
 
         this.nombre = nombre;
         this.precioReserva = precioReserva;
-        this.mesas = mesas;
+        this.mesas = new ArrayList<>(mesas);
         this.descuentos = new ArrayList<>();
 
     }

@@ -23,7 +23,7 @@ public class ComandoReservaTestDataBuilder {
         diaReserva = LocalDate.now();
         restaurante = null;
         mesa = null;
-        codigoDescuento = "codigo";
+        codigoDescuento = "";
         precio = new BigDecimal(50000);
     }
 
@@ -49,6 +49,11 @@ public class ComandoReservaTestDataBuilder {
 
     public ComandoReservaTestDataBuilder conMesa(ComandoMesa comandoMesa){
         this.mesa = comandoMesa;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conDescuento(String codigoDescuento){
+        this.codigoDescuento = codigoDescuento;
         return this;
     }
 }

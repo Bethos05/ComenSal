@@ -11,19 +11,14 @@ public interface RepositorioRestaurante {
      */
     Long crear(Restaurante restaurante);
 
-    /**
-     * Permite actualizar un restaurante
-     * @param restaurante
-     */
-    void actualizar(Restaurante restaurante);
+
 
 
     /**
      * Permite validar si existe un restaurante con un nombre
-     * @param id
+     * @param nombreRestaurante
      * @return
      */
     boolean existe(String nombreRestaurante);
 
-    Restaurante buscarPorNombre(String nombre);
 }

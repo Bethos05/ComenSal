@@ -38,7 +38,7 @@ public class ComandoControladorReservaTest {
     private MockMvc mockMvc;
 
     @Test
-    public void crear() throws Exception{
+    public void crearConDescuento() throws Exception{
 
 
         ComandoReserva reserva = new ComandoReservaTestDataBuilder()
@@ -50,7 +50,7 @@ public class ComandoControladorReservaTest {
                                         .conMesa(
                                                 new ComandoMesaTestDataBuilder()
                                                         .conIdentificador("mesa1").build()
-                                        )
+                                        ).conDescuento("codigo")
                                         .build();
 
         System.out.println(objectMapper.writeValueAsString(reserva));
@@ -58,6 +58,32 @@ public class ComandoControladorReservaTest {
         mockMvc.perform(post("/reservas")
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(reserva)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.valor").isNotEmpty());
+
+    }
+
+    @Test
+    public void crearSinDescuento() throws Exception{
+
+
+        ComandoReserva reserva = new ComandoReservaTestDataBuilder()
+                .conDiaReserva(LocalDate.now().plusDays(2))
+                .conRestaurante(
+                        new ComandoRestauranteTestDataBuilder()
+                                .conNombre("NOMBRE").build()
+                )
+                .conMesa(
+                        new ComandoMesaTestDataBuilder()
+                                .conIdentificador("mesa1").build()
+                )
+                .build();
+
+        System.out.println(objectMapper.writeValueAsString(reserva));
+
+        mockMvc.perform(post("/reservas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(reserva)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.valor").isNotEmpty());
 

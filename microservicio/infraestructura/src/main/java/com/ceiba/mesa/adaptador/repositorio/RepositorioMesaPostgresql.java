@@ -9,11 +9,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class RepositorioMesaPostgresql implements RepositorioMesa {
+
+    private static final String PARAMETRO_NOMBRE_RESTAURANTE="nombreRestaurante";
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
@@ -33,7 +34,7 @@ public class RepositorioMesaPostgresql implements RepositorioMesa {
     @Override
     public Long crear(String nombreRestaurante, Mesa mesa) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombreRestaurante);
         parameterSource.addValue("identificador", mesa.getIdentificador());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -53,7 +54,7 @@ public class RepositorioMesaPostgresql implements RepositorioMesa {
     public boolean existePorRestauranteYidentificador(String nombreRestaurante, String identificador) {
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombreRestaurante);
         parameterSource.addValue("identificador", identificador);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
@@ -65,7 +66,7 @@ public class RepositorioMesaPostgresql implements RepositorioMesa {
 
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombreRestaurante);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(
           sqlMesasPorRestaurante,

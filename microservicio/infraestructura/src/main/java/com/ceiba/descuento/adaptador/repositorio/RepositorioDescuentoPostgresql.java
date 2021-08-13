@@ -15,6 +15,9 @@ import java.util.List;
 @Repository
 public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
 
+    private static final String PARAMETRO_NOMBRE_RESTAURANTE="nombreRestaurante";
+    private static final String PARAMETRO_CODIGO="codigo";
+
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
     @SqlStatement(namespace = "descuento", value = "crear")
@@ -37,8 +40,8 @@ public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
     public Long crear(String nombreRestaurante, Descuento descuento) {
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
-        parameterSource.addValue("codigo", descuento.getCodigo());
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombreRestaurante);
+        parameterSource.addValue(PARAMETRO_CODIGO, descuento.getCodigo());
         parameterSource.addValue("valorDescuento", descuento.getValorDescuento());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -56,8 +59,8 @@ public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
     @Override
     public boolean existePorRestauranteYCodigo(String nombreRestaurante, String codigo) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
-        parameterSource.addValue("codigo", codigo);
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombreRestaurante);
+        parameterSource.addValue(PARAMETRO_CODIGO, codigo);
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
                 .queryForObject(sqlExistePorRestauranteYCodigo, parameterSource, Boolean.class);
     }
@@ -67,7 +70,7 @@ public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
 
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombreRestaurante);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(
                 sqlDescuentosPorRestaurante,
@@ -80,8 +83,8 @@ public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
     @Override
     public Descuento buscarPorRestauranteYcodigo(String nombre, String codigo) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("nombreRestaurante", nombre);
-        parameterSource.addValue("codigo", codigo);
+        parameterSource.addValue(PARAMETRO_NOMBRE_RESTAURANTE, nombre);
+        parameterSource.addValue(PARAMETRO_CODIGO, codigo);
 
         return
                 this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(
@@ -90,7 +93,7 @@ public class RepositorioDescuentoPostgresql implements RepositorioDescuento {
                         rs -> {
                             rs.next();
                             return new Descuento(
-                                    rs.getString("codigo"),
+                                    rs.getString(PARAMETRO_CODIGO),
                                     rs.getBigDecimal("valor_descuento")
                             );
                         }

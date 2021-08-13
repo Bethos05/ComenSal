@@ -57,7 +57,6 @@ public class ServicioAgregarMesaTest {
         Mesa mesa = new MesaTestDataBuilder().build();
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
         Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
-        Mockito.when(repositorioRestaurante.buscarPorNombre(Mockito.anyString())).thenReturn(restaurante);
         RepositorioMesa repositorioMesa = Mockito.mock(RepositorioMesa.class);
         Mockito.when(repositorioMesa.existePorRestauranteYidentificador(Mockito.anyString(),
                 Mockito.anyString())).thenReturn(false);
