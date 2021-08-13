@@ -19,8 +19,8 @@ public class ManejadorCrearDescuento implements ManejadorComandoRespuesta<Comand
         this.servicioCrearDescuento = servicioCrearDescuento;
     }
 
-    public ComandoRespuesta<Long> ejecutar( ComandoDescuento comandoDescuento){
+    public ComandoRespuesta<Long> ejecutar(ComandoDescuento comandoDescuento){
         Descuento descuento = this.fabricaDescuento.crear(comandoDescuento);
-        return new ComandoRespuesta<>(this.servicioCrearDescuento.ejecutar(descuento));
+        return new ComandoRespuesta<>(this.servicioCrearDescuento.ejecutar(comandoDescuento.getNombreRestaurante(),descuento));
     }
 }

@@ -19,7 +19,7 @@ public class ServicioCrearRestaurante {
     }
 
     private void validarExistenciaPrevia(Restaurante restaurante){
-        boolean existe = this.repositorioRestaurante.existe(restaurante.getId());
+        boolean existe = this.repositorioRestaurante.existe(restaurante.getNombre());
         if(existe){
             throw new ExcepcionDuplicidad(EXISTE_ACTUALMENTE);
         }

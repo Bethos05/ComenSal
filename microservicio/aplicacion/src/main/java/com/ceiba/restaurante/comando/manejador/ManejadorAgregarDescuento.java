@@ -18,10 +18,8 @@ public class ManejadorAgregarDescuento {
         this.fabricaDescuento = fabricaDescuento;
     }
 
-    public void ejecutar(ComandoDescuento comandoDescuento) {
-
+    public void ejecutar(String nombreRestaurante, ComandoDescuento comandoDescuento) {
         Descuento descuento = this.fabricaDescuento.crear(comandoDescuento);
-
-        this.servicioAgregarDescuento.ejecutar(descuento);
+        this.servicioAgregarDescuento.ejecutar(nombreRestaurante, descuento);
     }
 }

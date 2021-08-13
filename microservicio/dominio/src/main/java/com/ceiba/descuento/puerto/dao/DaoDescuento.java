@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface DaoDescuento {
 
-    List<DtoDescuento> listar(Long idRestaurante);
-
+    List<DtoDescuento> listar(String nombreRestaurante);
 
 }

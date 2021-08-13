@@ -16,15 +16,12 @@ public class DescuentoTest {
     @Test
     public void DescuentoTest(){
         this.descuento = new Descuento(
-                1l,
-                123L,
-                1L,
+                "codigo",
                 new BigDecimal(20000)
         );
 
-        assertTrue(this.descuento.getCodigo().equals(123L));
+        assertTrue(this.descuento.getCodigo().equals("codigo"));
         assertTrue(this.descuento.getValorDescuento().equals(new BigDecimal(20000)));
-
     }
 
     @Test
@@ -32,8 +29,8 @@ public class DescuentoTest {
         BasePrueba.assertThrows(
                 ()->{
                     this.descuento = new Descuento(
-                            1l, null,
-                            1L, new BigDecimal(20000)
+                            null,
+                            new BigDecimal(20000)
                     );
                 },
                 ExcepcionValorObligatorio.class,
@@ -41,27 +38,15 @@ public class DescuentoTest {
         );
     }
 
-    @Test
-    public void testDescuentoFallaCuandoNoSeIngresaIdRestaurante(){
-        BasePrueba.assertThrows(
-                ()->{
-                    this.descuento = new Descuento(
-                            1l, 123L,
-                            null, new BigDecimal(20000)
-                    );
-                },
-                ExcepcionValorObligatorio.class,
-                "Se debe ingresar el id del restaurante"
-        );
-    }
+
 
     @Test
     public void testDescuentoFallaCuandoNoSeIngresaValorDescuento(){
         BasePrueba.assertThrows(
                 ()->{
                     this.descuento = new Descuento(
-                            1l, 123L,
-                            1L, null
+                            "codigo",
+                            null
                     );
                 },
                 ExcepcionValorObligatorio.class,
@@ -73,9 +58,7 @@ public class DescuentoTest {
     public void descontarTest(){
         BigDecimal valorTotal = new BigDecimal(100000);
         this.descuento = new Descuento(
-                1l,
-                123L,
-                1L,
+                "codigo",
                 new BigDecimal(20000)
         );
 

@@ -22,6 +22,6 @@ public class ManejadorCrearMesa implements ManejadorComandoRespuesta<ComandoMesa
 
     public ComandoRespuesta<Long> ejecutar(ComandoMesa comandoMesa){
         Mesa mesa = this.fabricaMesa.crear(comandoMesa);
-        return new ComandoRespuesta<>(this.servicioCrearMesa.ejecutar(mesa));
+        return new ComandoRespuesta<>(this.servicioCrearMesa.ejecutar(comandoMesa.getNombreRestaurante(),mesa));
     }
 }

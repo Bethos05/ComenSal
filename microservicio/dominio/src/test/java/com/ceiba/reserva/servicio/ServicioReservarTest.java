@@ -1,13 +1,14 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.BasePrueba;
+import com.ceiba.descuento.modelo.entidad.Descuento;
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.descuento.servicio.servicio.testdatabuilder.DescuentoTestDataBuilder;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
+import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
-import com.ceiba.reserva.servicio.testdatabuilder.DtoReservaInTestDataBuilder;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class ServicioReservarTest {
     @Test
     public void validarExistenciaRestauranteNoExiste(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(false);
         ServicioReservar servicioReservar = new ServicioReservar(
                 null,
                 repositorioRestaurante,
@@ -30,7 +31,7 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().build()),
+                ()->servicioReservar.ejecutar(new ReservaTestDataBuilder().build(),"" ),
                 ExcepcionSinDatos.class,
                 "El restaurante no existe"
         );
@@ -39,9 +40,9 @@ public class ServicioReservarTest {
     @Test
     public void validarExistenciaRestauranteExisteYdescuentoNoExiste(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
         ServicioReservar servicioReservar = new ServicioReservar(
                 null,
                 repositorioRestaurante,
@@ -50,7 +51,13 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build()),
+
+                ()->{
+                    Descuento descuento = new DescuentoTestDataBuilder().build();
+                    Reserva reserva = new ReservaTestDataBuilder().build();
+                    reserva.agregarDescuento(descuento);
+                    servicioReservar.ejecutar(reserva, descuento.getCodigo());
+                },
                 ExcepcionSinDatos.class,
                 "El descuento no existe en este restaurante"
         );
@@ -59,11 +66,13 @@ public class ServicioReservarTest {
     @Test
     public void validarExistenciaRestauranteExisteYdescuentoExisteYMesaNoExiste(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
+        Descuento descuento = new DescuentoTestDataBuilder().build();
+        Mockito.when(repositorioDescuento.buscarPorRestauranteYcodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(descuento);
         RepositorioMesa repositorioMesa = Mockito.mock(RepositorioMesa.class);
-        Mockito.when(repositorioMesa.existePorRestauranteYid(Mockito.anyLong(),Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioMesa.existePorRestauranteYidentificador(Mockito.anyString(),Mockito.anyString())).thenReturn(false);
         ServicioReservar servicioReservar = new ServicioReservar(
                 null,
                 repositorioRestaurante,
@@ -72,7 +81,12 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build()),
+                ()->{
+
+                    Reserva reserva = new ReservaTestDataBuilder().build();
+                    reserva.agregarDescuento(descuento);
+                    servicioReservar.ejecutar(reserva, descuento.getCodigo());
+                },
                 ExcepcionSinDatos.class,
                 "La mesa no existe en este restaurante"
         );
@@ -81,13 +95,15 @@ public class ServicioReservarTest {
     @Test
     public void validarExistenciaRestauranteExisteYdescuentoExisteYMesaExisteYEstaReservada(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
+        Descuento descuento = new DescuentoTestDataBuilder().build();
+        Mockito.when(repositorioDescuento.buscarPorRestauranteYcodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(descuento);
         RepositorioMesa repositorioMesa = Mockito.mock(RepositorioMesa.class);
-        Mockito.when(repositorioMesa.existePorRestauranteYid(Mockito.anyLong(),Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioMesa.existePorRestauranteYidentificador(Mockito.anyString(),Mockito.anyString())).thenReturn(true);
         RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
-        Mockito.when(repositorioReserva.existePorRestauranteYMesaYdia(Mockito.anyLong(), Mockito.anyLong(), Mockito.any())).thenReturn(true);
+        Mockito.when(repositorioReserva.existePorRestauranteYMesaYdia(Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(true);
         ServicioReservar servicioReservar = new ServicioReservar(
                 repositorioReserva,
                 repositorioRestaurante,
@@ -96,22 +112,32 @@ public class ServicioReservarTest {
         );
 
         BasePrueba.assertThrows(
-                ()->servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build()),
+                ()->{
+
+                    Reserva reserva = new ReservaTestDataBuilder().build();
+                    reserva.agregarDescuento(descuento);
+                    servicioReservar.ejecutar(reserva, descuento.getCodigo());
+                },
                 ExcepcionDuplicidad.class,
                 "la mesa ya se encuentra reservada"
         );
     }
 
     @Test
-    public void validarExistenciaRestauranteExisteYdescuentoExisteYMesaExisteYNoEstaReservad(){
+    public void validarExistenciaRestauranteExisteYdescuentoExisteYMesaExisteYNoEstaReservada(){
+        Descuento descuento = new DescuentoTestDataBuilder().build();
+        Reserva reserva = new ReservaTestDataBuilder().build();
+        reserva.agregarDescuento(descuento);
+
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
+        Mockito.when(repositorioDescuento.buscarPorRestauranteYcodigo(Mockito.anyString(),Mockito.anyString())).thenReturn(descuento);
         RepositorioMesa repositorioMesa = Mockito.mock(RepositorioMesa.class);
-        Mockito.when(repositorioMesa.existePorRestauranteYid(Mockito.anyLong(),Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioMesa.existePorRestauranteYidentificador(Mockito.anyString(),Mockito.anyString())).thenReturn(true);
         RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
-        Mockito.when(repositorioReserva.existePorRestauranteYMesaYdia(Mockito.anyLong(), Mockito.anyLong(), Mockito.any())).thenReturn(false);
+        Mockito.when(repositorioReserva.existePorRestauranteYMesaYdia(Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(false);
         Mockito.when(repositorioReserva.crear(Mockito.any())).thenReturn(1l);
         ServicioReservar servicioReservar = new ServicioReservar(
                 repositorioReserva,
@@ -120,7 +146,7 @@ public class ServicioReservarTest {
                 repositorioMesa
         );
 
-        Long respuesta = servicioReservar.ejecutar(new DtoReservaInTestDataBuilder().conCodigoDescuento(1l).build());
+        Long respuesta = servicioReservar.ejecutar(reserva, descuento.getCodigo());
 
         Mockito.verify(repositorioReserva, Mockito.times(1)).crear(Mockito.any());
         assertTrue(respuesta == 1l);

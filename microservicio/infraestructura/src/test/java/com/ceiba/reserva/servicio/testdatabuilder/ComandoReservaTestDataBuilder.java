@@ -1,6 +1,11 @@
 package com.ceiba.reserva.servicio.testdatabuilder;
 
+import com.ceiba.descuento.comando.ComandoDescuento;
+import com.ceiba.mesa.comando.ComandoMesa;
+import com.ceiba.mesa.modelo.entidad.Mesa;
 import com.ceiba.reserva.comando.ComandoReserva;
+import com.ceiba.restaurante.ComandoRestaurante;
+import com.ceiba.restaurante.modelo.entidad.Restaurante;
 
 
 import java.math.BigDecimal;
@@ -8,33 +13,42 @@ import java.time.LocalDate;
 
 public class ComandoReservaTestDataBuilder {
 
-    private Long id;
     private LocalDate diaReserva;
-    private Long idRestaurante;
-    private Long idMesa;
-    private Long codigo;
+    private ComandoRestaurante restaurante;
+    private ComandoMesa mesa;
     private BigDecimal precio;
+    private String codigoDescuento;
 
     public ComandoReservaTestDataBuilder() {
-        id = 1l;
         diaReserva = LocalDate.now();
-        idRestaurante = 1l;
-        idMesa = 1l;
-        codigo = 123l;
+        restaurante = null;
+        mesa = null;
+        codigoDescuento = "codigo";
         precio = new BigDecimal(50000);
     }
 
     public ComandoReserva build() {
-        return new ComandoReserva(id,
+        return new ComandoReserva(
                 diaReserva,
-                idRestaurante,
-                idMesa,
-                codigo,
-                precio);
+                restaurante,
+                mesa,
+                precio,
+                codigoDescuento
+        );
     }
 
     public ComandoReservaTestDataBuilder conDiaReserva(LocalDate diaReserva){
         this.diaReserva = diaReserva;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conRestaurante(ComandoRestaurante comandoRestaurante){
+        this.restaurante = comandoRestaurante;
+        return this;
+    }
+
+    public ComandoReservaTestDataBuilder conMesa(ComandoMesa comandoMesa){
+        this.mesa = comandoMesa;
         return this;
     }
 }

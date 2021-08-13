@@ -17,17 +17,16 @@ public class RestauranteTestDataBuilder {
     private List<Descuento> descuentos;
 
     public RestauranteTestDataBuilder(){
-        id = 1l;
         nombre = "NOMBRE";
         precioReserva = new BigDecimal(100000);
         mesas = new ArrayList<>();
-        descuentos = new ArrayList<>();
     }
 
     public Restaurante build(){
         return new Restaurante(
-                id, nombre,
-                precioReserva
+                 nombre,
+                precioReserva,
+                new ArrayList<>()
         );
     }
 

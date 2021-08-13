@@ -1,6 +1,4 @@
-SELECT RESERVA.id, dia_reserva, nombre, mesa_id, valor_descuento, RESERVA.precio_reserva
-FROM RESERVA
-INNER JOIN RESTAURANTE
-ON RESERVA.id_restaurante = RESTAURANTE.id
-INNER JOIN DESCUENTO
+SELECT RESERVA.id,dia_reserva, RESERVA.nombre_restaurante, identificador_mesa,valor_descuento,precio
+from RESERVA
+LEFT JOIN DESCUENTO
 ON RESERVA.codigo_descuento = DESCUENTO.codigo

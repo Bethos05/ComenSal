@@ -13,9 +13,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ComandoDescuento {
 
-    private Long id;
-    private Long codigo;
-    private Long restauranteId;
+    private String codigo;
     private BigDecimal valorDescuento;
+    private String nombreRestaurante;
 
 }

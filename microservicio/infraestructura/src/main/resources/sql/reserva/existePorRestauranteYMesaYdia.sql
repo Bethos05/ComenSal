@@ -1,5 +1,5 @@
 SELECT COUNT(1)
 FROM RESERVA
-WHERE id_restaurante = :idRestaurante
-    AND mesa_id = :idMesa
+WHERE nombre_restaurante = :nombreRestaurante
+    AND identificador_mesa = :identificadorMesa
     AND dia_reserva = :diaReserva

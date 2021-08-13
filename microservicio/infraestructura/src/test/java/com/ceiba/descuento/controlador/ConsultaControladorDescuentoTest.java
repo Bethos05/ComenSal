@@ -34,11 +34,11 @@ public class ConsultaControladorDescuentoTest {
     @Test
     public void listar() throws  Exception{
 
-        mocMvc.perform(get("/descuentos/restaurante/1")
+        mocMvc.perform(get("/descuentos/restaurante/NOMBRE")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].codigo", is(123)));
+                .andExpect(jsonPath("$[0].codigo", is("codigo")));
 
     }
 

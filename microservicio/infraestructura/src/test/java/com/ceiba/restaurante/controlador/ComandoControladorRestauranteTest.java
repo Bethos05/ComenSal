@@ -56,7 +56,7 @@ public class ComandoControladorRestauranteTest {
 
         ComandoDescuento descuento = new ComandoDescuentoTestDataBuilder().build();
 
-        mockMvc.perform(post("/restaurantes/addDescuento")
+        mockMvc.perform(post("/restaurantes/NOMBRE/addDescuento")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(descuento)))
                 .andExpect(status().isOk());
@@ -66,9 +66,9 @@ public class ComandoControladorRestauranteTest {
     @Test
     public void addMesa() throws Exception{
 
-        ComandoMesa mesa = new ComandoMesaTestDataBuilder().conId(2l).build();
+        ComandoMesa mesa = new ComandoMesaTestDataBuilder().build();
 
-        mockMvc.perform(post("/restaurantes/addMesa")
+        mockMvc.perform(post("/restaurantes/NOMBRE/addMesa")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mesa)))
                 .andExpect(status().isOk());

@@ -22,9 +22,9 @@ public class DaoDescuentoPostgresql implements DaoDescuento {
     }
 
     @Override
-    public List<DtoDescuento> listar(Long idRestaurante) {
+    public List<DtoDescuento> listar(String nombreRestaurante) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("idRestaurante", idRestaurante);
+        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar,parameterSource, new MapeoDescuento());
     }
 }

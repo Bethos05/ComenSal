@@ -1,0 +1,1 @@
+insert into RESERVA(dia_reserva,nombre_restaurante,identificador_mesa,precio) values(:diaReserva,:nombreRestaurante, :identificadorMesa, :precio );

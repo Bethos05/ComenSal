@@ -23,7 +23,7 @@ public interface RepositorioRestaurante {
      * @param id
      * @return
      */
-    boolean existe(Long id);
+    boolean existe(String nombreRestaurante);
 
-    Restaurante buscarPorId(Long id);
+    Restaurante buscarPorNombre(String nombre);
 }

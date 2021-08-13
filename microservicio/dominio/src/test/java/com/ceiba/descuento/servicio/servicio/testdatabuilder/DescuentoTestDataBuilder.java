@@ -6,27 +6,22 @@ import java.math.BigDecimal;
 
 public class DescuentoTestDataBuilder {
 
-    private Long id;
-    private Long codigo;
-    private Long restauranteId;
+    private String codigo;
     private BigDecimal valorDescuento;
 
     public DescuentoTestDataBuilder(){
-        codigo = 123l;
-        restauranteId = 1l;
+        codigo = "codigo";
         valorDescuento = new BigDecimal(20000);
     }
 
-    public DescuentoTestDataBuilder conId(Long id){
-        this.id = id;
+    public DescuentoTestDataBuilder conCodigo(String codigo){
+        this.codigo = codigo;
         return this;
     }
 
     public Descuento build(){
         return new Descuento(
-                id,
                 codigo,
-                restauranteId,
                 valorDescuento
         );
     }

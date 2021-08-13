@@ -4,24 +4,25 @@ import com.ceiba.mesa.comando.ComandoMesa;
 
 public class ComandoMesaTestDataBuilder {
 
-    private Long id;
-    private Long restauranteId;
+    private String identificador;
+    private String nombreRestaurante;
 
     public ComandoMesaTestDataBuilder(){
-        restauranteId = 1l;
+        identificador = "mesa";
+        nombreRestaurante = "nombre";
     }
 
 
     public ComandoMesa build(){
         return new ComandoMesa(
-                id,
-                restauranteId
+               identificador,
+                nombreRestaurante
         );
     }
 
-    public ComandoMesaTestDataBuilder conId(Long id){
-        this.id = id;
-        return this;
+    public ComandoMesaTestDataBuilder conIdentificador(String identificador){
+        this.identificador = identificador;
+        return  this;
     }
 
 

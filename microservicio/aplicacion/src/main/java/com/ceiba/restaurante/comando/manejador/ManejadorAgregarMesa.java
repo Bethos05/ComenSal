@@ -17,8 +17,8 @@ public class ManejadorAgregarMesa {
         this.fabricaMesa = fabricaMesa;
     }
 
-    public void ejecutar(ComandoMesa comandoMesa){
+    public void ejecutar(String nombreRestaurante, ComandoMesa comandoMesa){
         Mesa mesa = this.fabricaMesa.crear(comandoMesa);
-        this.servicioAgregarMesa.ejecutar(mesa);
+        this.servicioAgregarMesa.ejecutar(nombreRestaurante,mesa);
     }
 }

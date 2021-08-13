@@ -1,8 +1,14 @@
 package com.ceiba.reserva.controlador;
 
 import com.ceiba.ApplicationMock;
+import com.ceiba.mesa.comando.fabrica.FabricaMesa;
+import com.ceiba.mesa.modelo.entidad.Mesa;
+import com.ceiba.mesa.servicio.testdatabuilder.ComandoMesaTestDataBuilder;
 import com.ceiba.reserva.comando.ComandoReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ComandoReservaTestDataBuilder;
+import com.ceiba.restaurante.comando.fabrica.FabricaRestaurante;
+import com.ceiba.restaurante.modelo.entidad.Restaurante;
+import com.ceiba.restaurante.servicio.testdatabuilder.ComandoRestauranteTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +40,20 @@ public class ComandoControladorReservaTest {
     @Test
     public void crear() throws Exception{
 
-        ComandoReserva reserva = new ComandoReservaTestDataBuilder().conDiaReserva(LocalDate.now().plusDays(1)).build();
+
+        ComandoReserva reserva = new ComandoReservaTestDataBuilder()
+                                        .conDiaReserva(LocalDate.now().plusDays(1))
+                                        .conRestaurante(
+                                                new ComandoRestauranteTestDataBuilder()
+                                                        .conNombre("NOMBRE").build()
+                                        )
+                                        .conMesa(
+                                                new ComandoMesaTestDataBuilder()
+                                                        .conIdentificador("mesa1").build()
+                                        )
+                                        .build();
+
+        System.out.println(objectMapper.writeValueAsString(reserva));
 
         mockMvc.perform(post("/reservas")
         .contentType(MediaType.APPLICATION_JSON)

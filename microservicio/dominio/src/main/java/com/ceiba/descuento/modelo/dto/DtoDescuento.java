@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class DtoDescuento {
 
     private Long id;
-    private Long codigo;
+    private String codigo;
     private BigDecimal valorDescuento;
 
 }

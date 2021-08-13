@@ -1,4 +1,4 @@
-package com.ceiba.descuento.controlador;//package com.ceiba.descuento.controlador;
+package com.ceiba.descuento.controlador;
 
 import com.ceiba.ApplicationMock;
 import com.ceiba.descuento.comando.ComandoDescuento;

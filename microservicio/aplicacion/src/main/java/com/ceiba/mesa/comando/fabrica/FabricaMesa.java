@@ -9,8 +9,7 @@ public class FabricaMesa {
 
     public Mesa crear(ComandoMesa comandoMesa){
         return new Mesa(
-                comandoMesa.getId(),
-                comandoMesa.getRestauranteId()
+              comandoMesa.getIdentificador()
         );
     }
 }

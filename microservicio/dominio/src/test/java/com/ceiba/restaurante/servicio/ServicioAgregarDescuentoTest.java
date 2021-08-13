@@ -4,10 +4,12 @@ import com.ceiba.BasePrueba;
 import com.ceiba.descuento.modelo.entidad.Descuento;
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.descuento.servicio.ServicioCrearDescuento;
+import com.ceiba.descuento.servicio.servicio.testdatabuilder.DescuentoTestDataBuilder;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.restaurante.modelo.entidad.Restaurante;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
+import com.ceiba.restaurante.servicio.testdatabuilder.RestauranteTestDataBuilder;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -20,7 +22,7 @@ public class ServicioAgregarDescuentoTest {
     @Test
     public void validarExistenciaRestauranteNoExiste(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(false);
         ServicioAgregarDescuento servicioAgregarDescuento = new ServicioAgregarDescuento(
                 repositorioRestaurante,
                 null,
@@ -28,7 +30,7 @@ public class ServicioAgregarDescuentoTest {
         );
 
         BasePrueba.assertThrows(
-                ()-> servicioAgregarDescuento.ejecutar( new Descuento(1l, 123L, 1l, new BigDecimal(20000))),
+                ()-> servicioAgregarDescuento.ejecutar(Mockito.anyString(), new DescuentoTestDataBuilder().build()),
                 ExcepcionSinDatos.class,
                 "El restaurante no existe"
         );
@@ -37,9 +39,9 @@ public class ServicioAgregarDescuentoTest {
     @Test
     public void validarExistenciaRestauranteExisteYDescuentoYaExiste(){
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
         ServicioAgregarDescuento servicioAgregarDescuento = new ServicioAgregarDescuento(
                 repositorioRestaurante,
                 repositorioDescuento,
@@ -47,7 +49,7 @@ public class ServicioAgregarDescuentoTest {
         );
 
         BasePrueba.assertThrows(
-                ()-> servicioAgregarDescuento.ejecutar( new Descuento(1l, 123L, 1l, new BigDecimal(20000))),
+                ()-> servicioAgregarDescuento.ejecutar( Mockito.anyString(), new DescuentoTestDataBuilder().build()),
                 ExcepcionDuplicidad.class,
                 "El descuento ya existe en este restaurante"
         );
@@ -56,13 +58,13 @@ public class ServicioAgregarDescuentoTest {
 
     @Test
     public void validarExistenciaRestauranteExisteYDescuentoNoExiste(){
-        Restaurante restaurante = new Restaurante(1l, "NOMBRE",new BigDecimal(50000));
-        Descuento descuento = new Descuento(1l, 123L, 1l, new BigDecimal(20000));
+        Restaurante restaurante = new RestauranteTestDataBuilder().build();
+        Descuento descuento = new DescuentoTestDataBuilder().build();
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
-        Mockito.when(repositorioRestaurante.buscarPorId(Mockito.anyLong())).thenReturn(restaurante);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.buscarPorNombre(Mockito.anyString())).thenReturn(restaurante);
         RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyLong(), Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioDescuento.existePorRestauranteYCodigo(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
         ServicioCrearDescuento servicioCrearDescuento = Mockito.mock(ServicioCrearDescuento.class);
         ServicioAgregarDescuento servicioAgregarDescuento = new ServicioAgregarDescuento(
                 repositorioRestaurante,
@@ -70,11 +72,9 @@ public class ServicioAgregarDescuentoTest {
                 servicioCrearDescuento
         );
 
-        servicioAgregarDescuento.ejecutar(descuento);
+        servicioAgregarDescuento.ejecutar("NOMBRE",descuento);
 
-
-        Mockito.verify(servicioCrearDescuento, Mockito.times(1)).ejecutar(descuento);
-
+        Mockito.verify(servicioCrearDescuento, Mockito.times(1)).ejecutar("NOMBRE",descuento);
 
     }
 

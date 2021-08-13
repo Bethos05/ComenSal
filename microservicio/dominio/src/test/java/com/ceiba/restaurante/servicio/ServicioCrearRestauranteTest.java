@@ -17,7 +17,7 @@ public class ServicioCrearRestauranteTest {
         //arrange
         Restaurante restaurante = new RestauranteTestDataBuilder().build();
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(true);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(true);
         ServicioCrearRestaurante servicioCrearRestaurante = new ServicioCrearRestaurante(repositorioRestaurante);
 
         //act - assert
@@ -33,7 +33,7 @@ public class ServicioCrearRestauranteTest {
         //arrange
         Restaurante restaurante = new RestauranteTestDataBuilder().build();
         RepositorioRestaurante repositorioRestaurante = Mockito.mock(RepositorioRestaurante.class);
-        Mockito.when(repositorioRestaurante.existe(Mockito.anyLong())).thenReturn(false);
+        Mockito.when(repositorioRestaurante.existe(Mockito.anyString())).thenReturn(false);
         Mockito.when(repositorioRestaurante.crear(Mockito.any())).thenReturn(1l);
         ServicioCrearRestaurante servicioCrearRestaurante = new ServicioCrearRestaurante(repositorioRestaurante);
 

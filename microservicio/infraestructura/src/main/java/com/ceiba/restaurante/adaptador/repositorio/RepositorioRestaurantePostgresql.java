@@ -2,10 +2,12 @@ package com.ceiba.restaurante.adaptador.repositorio;
 
 import com.ceiba.descuento.adaptador.repositorio.RepositorioDescuentoPostgresql;
 import com.ceiba.descuento.modelo.entidad.Descuento;
+import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.mesa.adaptador.repositorio.RepositorioMesaPostgresql;
 import com.ceiba.mesa.modelo.entidad.Mesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import com.ceiba.restaurante.modelo.entidad.Restaurante;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,8 +19,8 @@ import java.util.List;
 public class RepositorioRestaurantePostgresql implements RepositorioRestaurante {
 
     private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
-    private final RepositorioDescuentoPostgresql repositorioDescuentoPostgresql;
-    private final RepositorioMesaPostgresql repositorioMesaPostgresql;
+    private final RepositorioDescuento repositorioDescuentoPostgresql;
+    private final RepositorioMesa repositorioMesaPostgresql;
 
     @SqlStatement(namespace = "restaurante", value = "crear")
     private static String sqlCrear;
@@ -32,7 +34,7 @@ public class RepositorioRestaurantePostgresql implements RepositorioRestaurante 
     @SqlStatement(namespace = "restaurante", value = "buscarPorId")
     private static String sqlBuscarPorId;
 
-    public RepositorioRestaurantePostgresql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, RepositorioDescuentoPostgresql repositorioDescuentoPostgresql, RepositorioMesaPostgresql repositorioMesaPostgresql) {
+    public RepositorioRestaurantePostgresql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, RepositorioDescuento repositorioDescuentoPostgresql, RepositorioMesa repositorioMesaPostgresql) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
         this.repositorioDescuentoPostgresql = repositorioDescuentoPostgresql;
         this.repositorioMesaPostgresql = repositorioMesaPostgresql;
@@ -48,40 +50,31 @@ public class RepositorioRestaurantePostgresql implements RepositorioRestaurante 
         this.customNamedParameterJdbcTemplate.actualizar(restaurante, sqlActualizar);
     }
 
+
     @Override
-    public boolean existe(Long idRestaurante) {
+    public boolean existe(String nombreRestaurante) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("idRestaurante", idRestaurante);
+        paramSource.addValue("nombreRestaurante", nombreRestaurante);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExiste,paramSource, Boolean.class);
     }
 
     @Override
-    public Restaurante buscarPorId(Long idRestaurante) {
+    public Restaurante buscarPorNombre(String nombreRestaurante) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("idRestaurante", idRestaurante);
+        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
 
-        List<Descuento> descuentos  = repositorioDescuentoPostgresql.descuentosPorRestaurante(idRestaurante);
-        List<Mesa> mesas = repositorioMesaPostgresql.mesasPorRestaurante(idRestaurante);
-        return
-                this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(
-                        sqlBuscarPorId,
-                        parameterSource,
-                        rs -> {
-                            rs.next();
+        List<Restaurante> restaurantes = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(
+                sqlBuscarPorId,
+                parameterSource,
+                new MapeoRestauranteEntidad(repositorioMesaPostgresql,repositorioDescuentoPostgresql,nombreRestaurante)
+        );
 
-                            Restaurante restaurante = new Restaurante(
-                                    rs.getLong("id"),
-                                    rs.getString("nombre"),
-                                    rs.getBigDecimal("precio_reserva")
-                            );
-
-                            restaurante.setDescuentos(descuentos);
-                            restaurante.setMesas(mesas);
-                            return restaurante;
-                        }
-                );
-
+        if(!restaurantes.isEmpty()){
+            return restaurantes.get(0);
+        }else{
+            return null;
+        }
 
     }
 }

@@ -14,7 +14,7 @@ public class MapeoDescuento implements RowMapper<DtoDescuento>, MapperResult {
     public DtoDescuento mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         Long id = rs.getLong("id");
-        Long codigo = rs.getLong("codigo");
+        String codigo = rs.getString("codigo");
         BigDecimal valorDescuento = rs.getBigDecimal("valor_descuento");
 
         return new DtoDescuento(

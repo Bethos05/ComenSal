@@ -15,7 +15,7 @@ public class ManejadorListarDescuentos {
         this.daoDescuento = daoDescuento;
     }
 
-    public List<DtoDescuento> ejecutar(Long idRestaurante){
-        return this.daoDescuento.listar(idRestaurante);
+    public List<DtoDescuento> ejecutar(String nombreRestaurante){
+        return this.daoDescuento.listar(nombreRestaurante);
     }
 }

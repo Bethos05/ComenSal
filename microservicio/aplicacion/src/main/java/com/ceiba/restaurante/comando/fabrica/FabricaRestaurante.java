@@ -10,9 +10,9 @@ public class FabricaRestaurante {
 
     public Restaurante crear(ComandoRestaurante comandoRestaurante){
         return  new Restaurante(
-                comandoRestaurante.getId(),
                 comandoRestaurante.getNombre(),
-                comandoRestaurante.getPrecioReserva()
+                comandoRestaurante.getPrecioReserva(),
+                comandoRestaurante.getMesas()
         );
     }
 

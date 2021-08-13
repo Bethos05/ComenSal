@@ -22,21 +22,21 @@ public class ServicioAgregarDescuento {
         this.servicioCrearDescuento = servicioCrearDescuento;
     }
 
-    public void ejecutar( Descuento descuento){
-       validarExistenciaRestaurante(descuento.getRestauranteId());
-       validarExistenciaDescuento(descuento.getRestauranteId(), descuento.getCodigo());
-       this.servicioCrearDescuento.ejecutar(descuento);
+    public void ejecutar( String nombreRestaurante, Descuento descuento){
+       validarExistenciaRestaurante(nombreRestaurante);
+       validarExistenciaDescuento(nombreRestaurante, descuento.getCodigo());
+       this.servicioCrearDescuento.ejecutar(nombreRestaurante,descuento);
     }
 
-    private void validarExistenciaRestaurante(Long idRestaurante){
-        boolean existe = this.repositorioRestaurante.existe(idRestaurante);
+    private void validarExistenciaRestaurante(String nombreRestaurante){
+        boolean existe = this.repositorioRestaurante.existe(nombreRestaurante);
         if(!existe){
             throw new ExcepcionSinDatos(RESTAURANTE_NO_EXISTE);
         }
     }
 
-    private void validarExistenciaDescuento(Long idRestaurante, Long codigo){
-        boolean existe = this.repositorioDescuento.existePorRestauranteYCodigo(idRestaurante, codigo);
+    private void validarExistenciaDescuento(String nombreRestaurante, String codigo){
+        boolean existe = this.repositorioDescuento.existePorRestauranteYCodigo(nombreRestaurante, codigo);
         if(existe){
             throw  new ExcepcionDuplicidad(EXISTE_ACTUALMENTE);
         }

@@ -1,28 +1,41 @@
 package com.ceiba.restaurante.servicio.testdatabuilder;
 
+import com.ceiba.mesa.modelo.entidad.Mesa;
 import com.ceiba.restaurante.ComandoRestaurante;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComandoRestauranteTestDataBuilder {
 
-    private Long id;
     private String nombre;
     private BigDecimal precioReserva;
+    private List<Mesa> mesas;
 
 
     public ComandoRestauranteTestDataBuilder(){
-        this.id = 2l;
         this.nombre = "restaurante new";
-        this.precioReserva = new BigDecimal(60000);
+        this.precioReserva = new BigDecimal(100000);
+        this.mesas = new ArrayList<>();
     }
 
     public ComandoRestaurante build(){
         return new ComandoRestaurante(
-                id,
                 nombre,
-                precioReserva
+                precioReserva,
+                mesas
         );
+    }
+
+    public ComandoRestauranteTestDataBuilder conNombre(String nombre){
+        this.nombre = nombre;
+        return this;
+    }
+
+    public ComandoRestauranteTestDataBuilder conPrecioReserva(BigDecimal precioReserva){
+        this.precioReserva = precioReserva;
+        return this;
     }
 
 }

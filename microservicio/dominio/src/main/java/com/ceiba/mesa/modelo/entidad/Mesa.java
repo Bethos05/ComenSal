@@ -1,24 +1,22 @@
 package com.ceiba.mesa.modelo.entidad;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
+@NoArgsConstructor
+@Setter
 @Getter
 public class Mesa {
 
-    private static final String SE_DEBE_INGRESAR_ID = "Se debe ingresar el id de la mesa";
-    private static final String SE_DEBE_INGRESAR_RESTAURANTE_ID = "Se debe ingresar el id del restaurante";
+    private static final String SE_DEBE_INGRESAR_IDENFITICADOR = "Se debe ingresar identificador";
 
-    private Long id;
-    private Long restauranteId;
+    private String identificador;
 
-
-    public Mesa(Long id, Long restauranteId) {
-        validarObligatorio(id, SE_DEBE_INGRESAR_ID);
-        validarObligatorio(restauranteId, SE_DEBE_INGRESAR_RESTAURANTE_ID);
-        this.id = id;
-        this.restauranteId = restauranteId;
+    public Mesa(String identificador) {
+        validarObligatorio(identificador, SE_DEBE_INGRESAR_IDENFITICADOR);
+        this.identificador = identificador;
     }
-
 }

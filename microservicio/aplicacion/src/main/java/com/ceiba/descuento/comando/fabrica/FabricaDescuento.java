@@ -9,9 +9,7 @@ public class FabricaDescuento {
 
     public Descuento crear(ComandoDescuento comandoDescuento){
         return  new Descuento(
-                comandoDescuento.getId(),
                 comandoDescuento.getCodigo(),
-                comandoDescuento.getRestauranteId(),
                 comandoDescuento.getValorDescuento()
         );
     }

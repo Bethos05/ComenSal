@@ -24,24 +24,19 @@ public class ReservaTestDataBuilder {
         diaReserva = LocalDate.now();
         restaurante =   new RestauranteTestDataBuilder().build();
         mesa = new MesaTestDataBuilder().build();
-        descuento = null;
         precio =  new BigDecimal(50000);
     }
 
     public Reserva build(){
         return new Reserva(
-                id,
                 diaReserva,
                 restaurante,
                 mesa,
-                descuento,
                 precio
         );
     }
 
 
-    public ReservaTestDataBuilder conDescuento(Descuento descuento){
-        this.descuento = descuento;
-        return this;
-    }
+
+
 }

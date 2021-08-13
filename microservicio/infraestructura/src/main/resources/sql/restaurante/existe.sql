@@ -1,3 +1,3 @@
 SELECT COUNT(1)
 FROM RESTAURANTE
-WHERE id =  :idRestaurante
+WHERE nombre =  :nombreRestaurante

@@ -4,16 +4,14 @@ import com.ceiba.mesa.modelo.entidad.Mesa;
 
 public class MesaTestDataBuilder {
 
-    private Long id;
-    private Long restauranteId;
+    private String identificador;
 
 
     public MesaTestDataBuilder(){
-        id = 12l;
-        restauranteId = 1l;
+        identificador = "identificador";
     }
 
     public Mesa build(){
-        return new Mesa(id, restauranteId);
+        return new Mesa(identificador);
     }
 }

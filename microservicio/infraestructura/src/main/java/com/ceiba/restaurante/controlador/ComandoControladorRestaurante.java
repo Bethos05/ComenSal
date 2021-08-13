@@ -10,10 +10,7 @@ import com.ceiba.restaurante.comando.manejador.ManejadorCrearRestaurante;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -37,16 +34,16 @@ public class ComandoControladorRestaurante {
         return manejadorCrearRestaurante.ejecutar(comandoRestaurante);
     }
 
-    @PostMapping("/addDescuento")
+    @PostMapping("{nombreRestaurante}/addDescuento")
     @ApiOperation("agregar descuento")
-    public void agregarDescuento(@RequestBody ComandoDescuento comandoDescuento){
-        manejadorAgregarDescuento.ejecutar(comandoDescuento);
+    public void agregarDescuento(@RequestBody ComandoDescuento comandoDescuento, @PathVariable String nombreRestaurante){
+        manejadorAgregarDescuento.ejecutar(nombreRestaurante,comandoDescuento);
     }
 
-    @PostMapping("/addMesa")
+    @PostMapping("{nombreRestaurante}/addMesa")
     @ApiOperation("agregar mesa")
-    public void agregarMesa(@RequestBody ComandoMesa comandoMesa){
-        manejadorAgregarMesa.ejecutar(comandoMesa);
+    public void agregarMesa(@RequestBody ComandoMesa comandoMesa, @PathVariable String nombreRestaurante){
+        manejadorAgregarMesa.ejecutar(nombreRestaurante, comandoMesa);
     }
 
 

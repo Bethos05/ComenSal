@@ -6,19 +6,18 @@ import java.math.BigDecimal;
 
 public class ComandoDescuentoTestDataBuilder {
 
-    private Long id;
-    private Long codigo;
-    private Long restauranteId;
+    private String codigo;
+    private String nombreRestaurante;
     private BigDecimal valorDescuento;
 
     public ComandoDescuentoTestDataBuilder(){
-        codigo = 12345l;
-        restauranteId = 1l;
+        codigo = "codigo_new";
         valorDescuento = new BigDecimal(20000);
+        nombreRestaurante = "NOMBRE";
     }
 
     public ComandoDescuento build() {
-        return new ComandoDescuento(id,codigo,restauranteId,valorDescuento);
+        return new ComandoDescuento(codigo,valorDescuento,nombreRestaurante);
     }
 
 

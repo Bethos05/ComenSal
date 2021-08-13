@@ -16,28 +16,27 @@ public class ServicioAgregarMesa {
     private final RepositorioMesa repositorioMesa;
     private final ServicioCrearMesa servicioCrearMesa;
 
-
     public ServicioAgregarMesa(RepositorioRestaurante repositorioRestaurante, RepositorioMesa repositorioMesa, ServicioCrearMesa servicioCrearMesa) {
         this.repositorioRestaurante = repositorioRestaurante;
         this.repositorioMesa = repositorioMesa;
         this.servicioCrearMesa = servicioCrearMesa;
     }
 
-    public void ejecutar(Mesa mesa){
-        validarExistenciaRestaurante(mesa.getRestauranteId());
-        validarExistenciaMesa(mesa.getRestauranteId(), mesa.getId());
-        this.servicioCrearMesa.ejecutar(mesa);
+    public void ejecutar(String nombreRestaurante, Mesa mesa){
+        validarExistenciaRestaurante(nombreRestaurante);
+        validarExistenciaMesa(nombreRestaurante, mesa.getIdentificador());
+        this.servicioCrearMesa.ejecutar(nombreRestaurante, mesa);
     }
 
-    private void validarExistenciaRestaurante(Long idRestaurante){
-        boolean existe = this.repositorioRestaurante.existe(idRestaurante);
+    private void validarExistenciaRestaurante(String nombreRestaurante){
+        boolean existe = this.repositorioRestaurante.existe(nombreRestaurante);
         if(!existe){
             throw new ExcepcionSinDatos(RESTAURANTE_NO_EXISTE);
         }
     }
 
-    private void validarExistenciaMesa(Long idRestaurante, Long id){
-        boolean existe = this.repositorioMesa.existePorRestauranteYid(idRestaurante, id);
+    private void validarExistenciaMesa(String nombreRestaurante, String identificador){
+        boolean existe = this.repositorioMesa.existePorRestauranteYidentificador(nombreRestaurante, identificador);
         if(existe){
             throw new ExcepcionDuplicidad(EXISTE_ACTUALMENTE);
         }

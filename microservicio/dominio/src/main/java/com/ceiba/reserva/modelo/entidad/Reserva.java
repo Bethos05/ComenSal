@@ -13,42 +13,36 @@ import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 @Getter
 public class Reserva {
 
-    private static final String SE_DEBE_INGRESAR_ID = "Se debe ingreser el id de la reserva";
     private static final String SE_DEBE_INGRESAR_RESTAURANTE = "Se debe ingresar el restaurante que se reserva";
     private static final String SE_DEBE_INGRESAR_DIA_RESERVA= "Se debe ingresar el dia de la reserva";
     private static final String SE_DEBE_INGRESAR_PRECIO_RESERVA= "Se debe ingresar el precio de la reserva";
     private static final String SE_DEBE_INGRESAR_MESA = "Se debe ingresar la mesa que se va a reservar";
+    private static final String DESCUENTO_NULO = "El descuento no debe ser nulo";
 
-    private Long id;
     private LocalDate diaReserva;
     private Restaurante restaurante;
     private Mesa mesa;
     private Descuento descuento;
     private BigDecimal precio;
 
-    public Reserva(Long id, LocalDate diaReserva, Restaurante restaurante, Mesa mesa, Descuento descuento, BigDecimal precio) {
+    public Reserva( LocalDate diaReserva, Restaurante restaurante, Mesa mesa, BigDecimal precio) {
 
-        validarObligatorio(id, SE_DEBE_INGRESAR_ID);
+        validarObligatorio(diaReserva, SE_DEBE_INGRESAR_DIA_RESERVA);
         validarObligatorio(restaurante, SE_DEBE_INGRESAR_RESTAURANTE);
         validarObligatorio(mesa, SE_DEBE_INGRESAR_MESA);
-        validarObligatorio(diaReserva, SE_DEBE_INGRESAR_DIA_RESERVA);
         validarObligatorio(precio, SE_DEBE_INGRESAR_PRECIO_RESERVA);
 
-        this.id = id;
         this.diaReserva = diaReserva;
         this.restaurante = restaurante;
         this.mesa = mesa;
-        this.descuento = descuento;
         this.precio = precio;
-
-        realizarDescuento();
+        
     }
-
-    public void realizarDescuento(){
-        if(this.descuento != null){
-            this.precio = this.descuento.descontar(this.precio);
-        }
+    
+    public void agregarDescuento(Descuento descuento){
+        validarObligatorio(descuento, DESCUENTO_NULO);
+        this.descuento = descuento;
+        this.precio = this.descuento.descontar(this.precio);
     }
-
 
 }

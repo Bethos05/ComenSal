@@ -11,7 +11,7 @@ public class ServicioCrearDescuento {
         this.repositorioDescuento = repositorioDescuento;
     }
 
-    public Long ejecutar(Descuento descuento){
-        return this.repositorioDescuento.crear(descuento);
+    public Long ejecutar(String nombreRestaurante, Descuento descuento){
+        return this.repositorioDescuento.crear( nombreRestaurante, descuento);
     }
 }

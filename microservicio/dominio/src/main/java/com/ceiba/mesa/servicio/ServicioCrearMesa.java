@@ -7,11 +7,11 @@ public class ServicioCrearMesa {
 
     private RepositorioMesa repositorioMesa;
 
-    public ServicioCrearMesa(RepositorioMesa repositorioMesa) {
+    public ServicioCrearMesa( RepositorioMesa repositorioMesa) {
         this.repositorioMesa = repositorioMesa;
     }
 
-    public Long ejecutar(Mesa mesa){
-        return this.repositorioMesa.crear(mesa);
+    public Long ejecutar(String nombreRestaurante,Mesa mesa){
+        return this.repositorioMesa.crear(nombreRestaurante, mesa);
     }
 }

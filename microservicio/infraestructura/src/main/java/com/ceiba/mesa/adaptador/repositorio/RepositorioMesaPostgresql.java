@@ -5,6 +5,8 @@ import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 import com.ceiba.mesa.modelo.entidad.Mesa;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -29,39 +31,46 @@ public class RepositorioMesaPostgresql implements RepositorioMesa {
     private static String sqlMesasPorRestaurante;
 
     @Override
-    public Long crear(Mesa mesa) {
-        return this.customNamedParameterJdbcTemplate.crear(mesa, sqlCrear);
+    public Long crear(String nombreRestaurante, Mesa mesa) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
+        parameterSource.addValue("identificador", mesa.getIdentificador());
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(
+                sqlCrear,
+                parameterSource,
+                keyHolder,
+                new String[] { "id" }
+        );
+
+        return keyHolder.getKey().longValue();
     }
 
+
+
     @Override
-    public boolean existePorRestauranteYid(Long idRestaurante, Long id) {
+    public boolean existePorRestauranteYidentificador(String nombreRestaurante, String identificador) {
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("idRestaurante", idRestaurante);
-        parameterSource.addValue("id", id);
+        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
+        parameterSource.addValue("identificador", identificador);
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
                 .queryForObject(sqlExistePorRestauranteYid, parameterSource, Boolean.class);
     }
 
     @Override
-    public List<Mesa> mesasPorRestaurante(Long idRestaurante) {
-        List<Mesa> mesas = new ArrayList<>();
+    public List<Mesa> mesasPorRestaurante(String nombreRestaurante) {
+
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("idRestaurante", idRestaurante);
+        parameterSource.addValue("nombreRestaurante", nombreRestaurante);
 
-        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlMesasPorRestaurante, parameterSource, row ->{
-            Long id = row.getLong("id");
-            Long restauranteId = row.getLong("id_restaurante");
-
-            Mesa mesa = new Mesa(
-                    id,
-                    restauranteId
-            );
-
-            mesas.add(mesa);
-        });
-        return mesas;
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(
+          sqlMesasPorRestaurante,
+          parameterSource,
+          new MapeoMesaEntidad()
+        );
     }
 }

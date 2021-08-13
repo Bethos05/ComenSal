@@ -3,7 +3,9 @@ package com.ceiba.restaurante.modelo.entidad;
 import com.ceiba.descuento.modelo.entidad.Descuento;
 import com.ceiba.mesa.modelo.entidad.Mesa;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,27 +17,24 @@ import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 @Setter
 public class Restaurante {
 
-    private static final  String SE_DEBE_INGRESAR_ID = "Se debe ingresar el ID del restaurante";
     private static final  String SE_DEBE_INGRESAR_NOMBRE = "Se debe ingresar el nombre del restaurante";
     private static final String SE_DEBE_INGRESAR_PRECIO_RESERVA = "Se debe ingresar el precio de la reserva";
+    private static final String SE_DEBE_INGRESAR_MESAS = "Se debe ingresar las mesas";
 
-
-    private Long id;
     private String nombre;
     private BigDecimal precioReserva;
     private List<Mesa> mesas;
     private List<Descuento> descuentos;
 
-    public Restaurante(Long id, String nombre, BigDecimal precioReserva) {
+    public Restaurante( String nombre, BigDecimal precioReserva, List<Mesa> mesas) {
 
-        validarObligatorio(id, SE_DEBE_INGRESAR_ID);
         validarObligatorio(nombre, SE_DEBE_INGRESAR_NOMBRE);
         validarObligatorio(precioReserva, SE_DEBE_INGRESAR_PRECIO_RESERVA);
+        validarObligatorio(mesas, SE_DEBE_INGRESAR_MESAS);
 
-        this.id = id;
         this.nombre = nombre;
         this.precioReserva = precioReserva;
-        this.mesas = new ArrayList<>();
+        this.mesas = mesas;
         this.descuentos = new ArrayList<>();
 
     }
@@ -55,5 +54,5 @@ public class Restaurante {
     public boolean eliminarDescuento(Descuento descuento){
         return descuentos.remove(descuento);
     }
-    
+
 }

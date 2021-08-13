@@ -16,16 +16,16 @@ public class MapeoReserva implements RowMapper<DtoReserva>, MapperResult {
 
         Long id = rs.getLong("id");
         LocalDate diaReserva = rs.getDate("dia_reserva").toLocalDate();
-        String nombre =  rs.getString("nombre");
-        Long idMesa = rs.getLong("mesa_id");
+        String nombreRestaurante =  rs.getString("nombre_restaurante");
+        String identificadorMesa = rs.getString("identificador_mesa");
         BigDecimal valorDescuento = rs.getBigDecimal("valor_descuento");
-        BigDecimal precio = rs.getBigDecimal("precio_reserva");
+        BigDecimal precio = rs.getBigDecimal("precio");
 
         return new DtoReserva(
                 id,
                 diaReserva,
-                nombre,
-                idMesa,
+                nombreRestaurante,
+                identificadorMesa,
                 valorDescuento,
                 precio
         );

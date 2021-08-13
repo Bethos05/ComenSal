@@ -1,3 +1,3 @@
 SELECT * FROM MESA
+WHERE nombre_restaurante = :nombreRestaurante
 ORDER BY id
-WHERE id_restaurante = :idRestaurante

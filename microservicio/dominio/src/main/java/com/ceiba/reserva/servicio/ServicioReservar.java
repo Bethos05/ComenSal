@@ -1,13 +1,13 @@
 package com.ceiba.reserva.servicio;
 
+import com.ceiba.descuento.modelo.entidad.Descuento;
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
-import com.ceiba.reserva.modelo.dto.DtoReservaIn;
+import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.restaurante.puerto.repositorio.RepositorioRestaurante;
-
 import java.time.LocalDate;
 
 public class ServicioReservar {
@@ -22,7 +22,6 @@ public class ServicioReservar {
     private final RepositorioDescuento repositorioDescuento;
     private final RepositorioMesa repositorioMesa;
 
-
     public ServicioReservar(RepositorioReserva repositorioReserva, RepositorioRestaurante repositorioRestaurante, RepositorioDescuento repositorioDescuento, RepositorioMesa repositorioMesa) {
         this.repositorioReserva = repositorioReserva;
         this.repositorioRestaurante = repositorioRestaurante;
@@ -30,48 +29,49 @@ public class ServicioReservar {
         this.repositorioMesa = repositorioMesa;
     }
 
-    public Long ejecutar(DtoReservaIn reserva){
+    public Long ejecutar(Reserva reserva, String codigo){
 
-        validarExistenciaRestaurante(reserva.getIdRestaurante());
-        validarExistenciaDescuento(reserva.getIdRestaurante(), reserva.getCodigo());
-        validarExistenciaMesa(reserva.getIdRestaurante(), reserva.getIdMesa());
-        validarDisponibilidad( reserva.getIdRestaurante(), reserva.getIdMesa(), reserva.getDiaReserva());
+        validarExistenciaRestaurante(reserva.getRestaurante().getNombre());
+        if(!codigo.isEmpty()){
+            validarExistenciaDescuento(reserva.getRestaurante().getNombre(), codigo);
+            Descuento descuento = repositorioDescuento.buscarPorRestauranteYcodigo(reserva.getRestaurante().getNombre(), codigo);
+            reserva.agregarDescuento(descuento);
+        }
+        validarExistenciaMesa(reserva.getRestaurante().getNombre(), reserva.getMesa().getIdentificador());
+        validarDisponibilidad(reserva.getRestaurante().getNombre(), reserva.getMesa().getIdentificador(), reserva.getDiaReserva());
+
+
 
         return this.repositorioReserva.crear(reserva);
     }
 
-    private void validarExistenciaRestaurante(Long idRestaurante){
-        boolean existe = this.repositorioRestaurante.existe(idRestaurante);
+    private void validarExistenciaRestaurante(String nombreRestaurante){
+        boolean existe = this.repositorioRestaurante.existe(nombreRestaurante);
         if(!existe){
             throw new ExcepcionSinDatos(RESTAURANTE_NO_EXISTE);
         }
     }
 
-    private void validarExistenciaDescuento(Long idRestaurante, Long codigo){
-        boolean existe = this.repositorioDescuento.existePorRestauranteYCodigo(idRestaurante, codigo);
+    private void validarExistenciaDescuento(String nombreRestaurante, String codigo){
+        boolean existe = this.repositorioDescuento.existePorRestauranteYCodigo(nombreRestaurante, codigo);
         if(!existe){
             throw  new ExcepcionSinDatos(DESCUENTO_NO_EXISTE);
         }
     }
 
-    private void validarExistenciaMesa(Long idRestaurante, Long idMesa){
-        boolean existe = this.repositorioMesa.existePorRestauranteYid(idRestaurante, idMesa);
+    private void validarExistenciaMesa(String nombreRestaurante, String identificadorMesa){
+        boolean existe = this.repositorioMesa.existePorRestauranteYidentificador(nombreRestaurante, identificadorMesa);
         if(!existe){
             throw new ExcepcionSinDatos(MESA_NO_EXISTE);
         }
     }
 
-
-    private void validarDisponibilidad(Long idRestaurante, Long idMesa, LocalDate diaReserva)  {
-        boolean reservada = this.repositorioReserva.existePorRestauranteYMesaYdia(idRestaurante, idMesa, diaReserva);
-
+    private void validarDisponibilidad(String nombreRestaurante, String identificadorMesa, LocalDate diaReserva)  {
+        boolean reservada = this.repositorioReserva.existePorRestauranteYMesaYdia(nombreRestaurante, identificadorMesa, diaReserva);
         if (reservada){
             throw new ExcepcionDuplicidad(MESA_RESERVADA);
         }
 
     }
-
-
-
 
 }

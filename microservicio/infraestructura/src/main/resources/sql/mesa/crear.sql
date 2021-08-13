@@ -1,2 +1,2 @@
-INSERT INTO MESA (id_restaurante)
-values(:restauranteId);
+INSERT INTO MESA (identificador, nombre_restaurante)
+values(:identificador, :nombreRestaurante);

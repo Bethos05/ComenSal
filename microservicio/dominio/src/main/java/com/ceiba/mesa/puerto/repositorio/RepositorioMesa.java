@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface RepositorioMesa {
 
-    Long crear(Mesa mesa);
+    Long crear(String nombreRestaurante, Mesa mesa);
 
-    boolean existePorRestauranteYid(Long idRestaurante, Long id);
+    boolean existePorRestauranteYidentificador(String nombreRestaurante, String identificador);
 
-    List<Mesa> mesasPorRestaurante(Long idRestaurante);
+    List<Mesa> mesasPorRestaurante(String nombreRestaurante);
 }

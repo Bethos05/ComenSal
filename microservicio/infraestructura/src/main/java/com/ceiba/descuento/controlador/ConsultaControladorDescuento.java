@@ -22,10 +22,10 @@ public class ConsultaControladorDescuento {
         this.manejadorListarDescuentos = manejadorListarDescuentos;
     }
 
-    @GetMapping("/restaurante/{idRestaurante}")
+    @GetMapping("/restaurante/{nombreRestaurante}")
     @ApiOperation("Listar descuentos")
-    public List<DtoDescuento> listar(@PathVariable Long idRestaurante){
-        return this.manejadorListarDescuentos.ejecutar(idRestaurante);
+    public List<DtoDescuento> listar(@PathVariable String nombreRestaurante){
+        return this.manejadorListarDescuentos.ejecutar(nombreRestaurante);
     }
 
 

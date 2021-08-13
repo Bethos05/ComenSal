@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ComandoMesa {
 
-    private Long id;
-    private Long restauranteId;
+    private String identificador;
+    private String nombreRestaurante;
+
 }
